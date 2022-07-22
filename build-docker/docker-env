@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+cd "$(dirname "$0")/.."
+
+IMAGE_NAME=${IMAGE_NAME:-bitcoin-builder}
+BDB_PREFIX=${BDB_PREFIX:-"$(pwd)/db4"}
+docker run --rm -it \
+  -u $(id -u):$(id -g)  -v $(pwd):$(pwd) -w $(pwd) \
+  -e BDB_PREFIX="$(pwd)/db4" \
+  ${IMAGE_NAME} "$@"
